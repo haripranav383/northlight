@@ -111,10 +111,11 @@ The human directing this can't read code to catch mistakes. So:
   server functions.
 - **No logins.** The home page just has three buttons: Elder / Nurse / Control Room.
 - **The language model** goes through one small file, `lib/llm.ts`, so we can swap
-  providers by changing one setting. Default is **Gemini's free tier**. Important
-  reality: the Google AI Pro student plan does NOT cover this — that plan is for the
-  Gemini app and NotebookLM, not for an app making API calls. So the app runs on the
-  free API tier, which has rate limits we handle gracefully (section 22).
+  providers by changing one setting. Default for the hackathon build is the
+  **Anthropic API (Claude)** — Haiku for fast extraction, Sonnet for June's
+  conversation — funded by the event's API credits. Budget fallback if building
+  outside the event: **Gemini's free tier** (note: the Google AI Pro student plan
+  does NOT cover API calls), with rate limits handled gracefully (section 22).
 - **Voice** uses the browser's built-in speech (Chrome only). A push-to-talk button:
   tap to talk, tap to stop. Typing always works too, as a backup.
 - **Tailwind** for styling. **Motion** (the library, formerly Framer Motion) for
@@ -311,10 +312,8 @@ it like a doctor.
 remembers things about the person. She talks about *their life*, not about the system.
 
 **Each time the elder says something, the server does two model calls:**
-1. **Reply** (Gemini Flash): her personality + the last 30 messages → what she says back.
-2. **Notice** (Gemini Flash-Lite): looks at what was just said and replies with a tidy
-   list of any flags, memory updates, and (if relevant) "they just confirmed the task."
-   If this step ever returns junk, log it and move on — never crash the chat.
+1. **Reply** (Claude Sonnet): her personality + the last 30 messages → what she says back.
+2. **Notice** (Claude Haiku): looks at what was just said and replies with a tidy
 
 Then: save any flags → call the brain (section 7).
 
