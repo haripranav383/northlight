@@ -547,8 +547,9 @@ for the learning brain — build the foundation so the brain transplant later is
 
 ## 22. Money — aim for $0
 
-The app's model calls run on **Gemini's free tier** (again: the student AI Pro plan does
-NOT cover API calls). So:
+The app's model calls run on the **Anthropic API** during the hackathon (covered by
+event credits); the $0 fallback is **Gemini's free tier** (again: the student AI Pro
+plan does NOT cover API calls). On the fallback:
 - All model calls go through `lib/llm.ts`, which retries politely when rate-limited
   (wait 1s, 2s, 4s) and degrades gracefully. Free tier has per-minute limits — fine for
   one user, but warm it up before recording the walkthrough so a limit doesn't hit mid-take.
